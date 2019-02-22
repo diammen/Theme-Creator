@@ -131,11 +131,16 @@ namespace ThemeCreator
 
             Nullable<bool> result = dlg.ShowDialog();
 
+            string input = "";
+
+            input += "Main Menu: " + menuTextColor.Text + "\n";
+            input += "Options Menu: " + optionsTextColor.Text + "\n";
+
             if (result == true)
             {
                 using (FileStream file = File.Create(dlg.FileName))
                 {
-                    byte[] info = new UTF8Encoding(true).GetBytes("hi");
+                    byte[] info = new UTF8Encoding(true).GetBytes(input);
                     file.Write(info, 0, info.Length);
                 }
             }
