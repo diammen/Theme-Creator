@@ -12,9 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using System.IO;
 using Microsoft.Win32;
+using System.Windows.Markup;
+
 
 namespace ThemeCreator
 {
@@ -27,18 +30,8 @@ namespace ThemeCreator
         public class Theme
         {
             private List<Scene> _scenes;
-
-            public List<Scene> Scenes
-            {
-                get
-                {
-                    return _scenes;
-                }
-                set
-                {
-                    _scenes = value;
-                }
-            }
+  
+            public List<Scene> Scenes { get => _scenes; set => _scenes = value; }
 
             public Theme()
             {
@@ -57,8 +50,11 @@ namespace ThemeCreator
         public class Scene
         {
             private string HexCode;
+            private FontFamily _font;
 
             public string TextColor { get => HexCode; set => HexCode = value; }
+
+            public FontFamily Font { get => _font; set => _font = value; }
         }
 
         public class MainMenu : Scene
@@ -66,6 +62,7 @@ namespace ThemeCreator
             public MainMenu()
             {
                 TextColor = "FFFFFF";
+                Font = new FontFamily("Resources/#Grixel Acme 7 Wide");
             }
         }
 
@@ -86,33 +83,24 @@ namespace ThemeCreator
 
             private Dictionary<string, string> _textColors;
 
-            public Dictionary<string, string> TextColors
-            {
-                get
-                {
-                    return _textColors;
-                }
-                set
-                {
-                    _textColors = value;
-                }
-            }
+            public Dictionary<string, string> TextColors { get => _textColors; set => _textColors = value; }
 
             public InGame()
             {
                 _textColors = new Dictionary<string, string>();
             }
         }
+        Theme test = new Theme();
         public MainWindow()
         {
             InitializeComponent();
 
-            Theme test = new Theme();
             menuTextColor.DataContext = test.Scenes[0];
             optionsTextColor.DataContext = test.Scenes[1];
+            menuFont.DataContext = test.Scenes[0];
     }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "uso!mania themes (.uso)|*.uso";
@@ -122,7 +110,7 @@ namespace ThemeCreator
             }
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void NewFile_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.FileName = "theme1";
@@ -177,6 +165,29 @@ namespace ThemeCreator
         {
             TextBox textBox = (TextBox)sender;
             textBox.Text = "FFFFFF";
+        }
+
+        private void SaveFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mainFontBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "True Type Fonts (.ttf)|*.ttf";
+            if (dlg.ShowDialog() == true)
+            {
+
+                var fonts = Fonts.GetFontFamilies(dlg.FileName);
+
+                foreach(FontFamily fontFam in fonts)
+                {
+                    test.Scenes[0].Font = fontFam;
+                }
+
+                menuFont.DataContext = test.Scenes[0];
+            }
         }
     }
 }
