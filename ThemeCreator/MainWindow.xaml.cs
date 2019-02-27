@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.ComponentModel;
 using Microsoft.Win32;
 using System.Windows.Markup;
 
@@ -47,14 +49,35 @@ namespace ThemeCreator
             }
         }
 
-        public class Scene
+        public class Scene : INotifyPropertyChanged
         {
             private string HexCode;
             private FontFamily _font;
 
             public string TextColor { get => HexCode; set => HexCode = value; }
 
-            public FontFamily Font { get => _font; set => _font = value; }
+            public FontFamily Font
+            {
+                get
+                {
+                    return _font;
+                }
+                set
+                {
+                    _font = value;
+                    NotifyPropertyChanged("Font");
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            public void NotifyPropertyChanged(string name)
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(name));
+                }
+            }
         }
 
         public class MainMenu : Scene
@@ -62,7 +85,7 @@ namespace ThemeCreator
             public MainMenu()
             {
                 TextColor = "FFFFFF";
-                Font = new FontFamily("Resources/#Grixel Acme 7 Wide");
+                Font = new FontFamily("Resources/Acme 7 Wide.ttf#Grixel Acme 7 Wide");
             }
         }
 
@@ -98,6 +121,7 @@ namespace ThemeCreator
             menuTextColor.DataContext = test.Scenes[0];
             optionsTextColor.DataContext = test.Scenes[1];
             menuFont.DataContext = test.Scenes[0];
+            song1.DataContext = test.Scenes[0];
     }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -172,10 +196,11 @@ namespace ThemeCreator
 
         }
 
-        private void mainFontBrowse_Click(object sender, RoutedEventArgs e)
+        private void FontBrowse_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "True Type Fonts (.ttf)|*.ttf";
+
             if (dlg.ShowDialog() == true)
             {
 
@@ -185,8 +210,8 @@ namespace ThemeCreator
                 {
                     test.Scenes[0].Font = fontFam;
                 }
-
-                menuFont.DataContext = test.Scenes[0];
+                BindingExpression binding = menuFont.GetBindingExpression(TextBox.TextProperty);
+                binding.UpdateSource();
             }
         }
     }

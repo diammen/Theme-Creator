@@ -6,60 +6,73 @@
         xmlns:local="clr-namespace:ThemeCreator"
         mc:Ignorable="d"
         Title="MainWindow" Height="550" Width="1050">
-    <Window.Resources>
-        <Color x:Key="Color1">Black</Color>
-    </Window.Resources>
-    <Grid Background="#FF4B4B4B">
-        <ListBox Margin="801,20,1,0" Background="#FF4B4B4B" BorderBrush="#FF828282" Width="240">
-            <Expander x:Name="mainMenuExpand" Header="Main Menu" HorizontalAlignment="Stretch" Foreground="White" BorderBrush="#7FE6E6E6" Width="230">
-                <Grid HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="25"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Grid.Column="0" Content="_Text Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="menuTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" Width="155"/>
-                    <Label Grid.Row="1" Grid.Column="0" Content="_Font" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14"/>
-                    <TextBlock x:Name="menuFont" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Font}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="135" Background="#BF969696" Foreground="#BFFFFFFF"/>
-                    <Button x:Name="mainFontBrowse" Grid.Row="1" Grid.Column="1" Height="15" Width="15" HorizontalAlignment="Right" Background="#00000000" BorderBrush="{x:Null}" Click="mainFontBrowse_Click"/>
-                </Grid>
-            </Expander>
-            <Expander x:Name="optionsExpand" Header="Options Menu" HorizontalAlignment="Stretch" Foreground="White" BorderBrush="#7FE6E6E6" Width="230">
-                <StackPanel HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
-                    <Label Content="_Text Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
-                    <TextBox x:Name ="optionsTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="{x:Null}" SelectionBrush="Black" SelectionOpacity="0" PreviewTextInput="PreviewInput" Loaded="TextBoxLoaded"/>
-                </StackPanel>
-            </Expander>
-            <Expander Header="Expander" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="White" BorderBrush="#7FE6E6E6" Width="230">
-                <DockPanel HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
-                    <Label Content="_Text Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
-                    <TextBox x:Name ="inGameTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" Loaded="TextBoxLoaded"/>
-                </DockPanel>
-            </Expander>
-        </ListBox>
-        <DockPanel Height="20" LastChildFill="False" VerticalAlignment="Top" Margin="0,0,-8,0" Width="1050">
-            <Menu DockPanel.Dock="Top" Width="1050">
-                <MenuItem Header="_File">
-                    <MenuItem x:Name="NewFile" Header="_New" Click="NewFile_Click"/>
-                    <MenuItem x:Name="OpenFile" Header="_Open" Click="OpenFile_Click"/>
-                    <MenuItem x:Name="SaveFile" Header="_Save" Click="SaveFile_Click"/>
-                </MenuItem>
-                <MenuItem Header="_More">
-                    <MenuItem Header="_About"/>
-                </MenuItem>
-            </Menu>
+  <Window.Resources>
+    <Color x:Key="Color1">Black</Color>
+  </Window.Resources>
+  <Grid Background="#FF4B4B4B">
+    <ListBox Margin="801,20,1,0" Background="#FF4B4B4B" BorderBrush="#FF828282" Width="240" Grid.ColumnSpan="2">
+      <Expander x:Name="mainMenuExpand" Header="Main Menu" HorizontalAlignment="Stretch" Foreground="White" BorderBrush="#7FE6E6E6" Width="230">
+        <Grid HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="25"/>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Label Grid.Row="0" Grid.Column="0" Content="_Text Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
+          <TextBox Grid.Row="0" Grid.Column="1" x:Name="menuTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" Width="155"/>
+          <Label Grid.Row="1" Grid.Column="0" Content="_Font" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14"/>
+          <TextBox x:Name="menuFont" Grid.Row="1" Grid.Column="1" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Text="{Binding Font, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="135" Background="#BF969696" Foreground="#BFFFFFFF" IsReadOnly="True"/>
+          <Button x:Name="mainFontBrowse" Grid.Row="1" Grid.Column="1" Height="15" Width="15" HorizontalAlignment="Right" Background="#00000000" BorderBrush="White" Click="FontBrowse_Click"/>
+        </Grid>
+      </Expander>
+      <Expander x:Name="optionsExpand" Header="Options Menu" HorizontalAlignment="Stretch" Foreground="White" BorderBrush="#7FE6E6E6" Width="230">
+        <Grid HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="25"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="_Text Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="optionsTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" Width="155"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="_Font" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14"/>
+            <TextBox x:Name="optionsFont" Grid.Row="1" Grid.Column="1" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Text="{Binding Font, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="135" Background="#BF969696" Foreground="#BFFFFFFF" IsReadOnly="True"/>
+            <Button x:Name="optionsFontBrowse" Grid.Row="1" Grid.Column="1" Height="15" Width="15" HorizontalAlignment="Right" Background="#00000000" BorderBrush="White" Click="FontBrowse_Click"/>
+        </Grid>
+      </Expander>
+      <Expander Header="Expander" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="White" BorderBrush="#7FE6E6E6" Width="230">
+        <DockPanel HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
+          <Label Content="_Text Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
+          <TextBox x:Name ="inGameTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="{x:Null}" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" Loaded="TextBoxLoaded"/>
         </DockPanel>
-        <Canvas x:Name="MainMenuPV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Grid.ColumnSpan="3" Background="#FFA6A6A6">
+      </Expander>
+    </ListBox>
+    <DockPanel Height="20" LastChildFill="False" VerticalAlignment="Top" Margin="0,0,-8,0" Width="1050" Grid.ColumnSpan="2">
+      <Menu DockPanel.Dock="Top" Margin="0,0,4,0">
+        <MenuItem Header="_File">
+          <MenuItem x:Name="NewFile" Header="_New" Click="NewFile_Click"/>
+          <MenuItem x:Name="OpenFile" Header="_Open" Click="OpenFile_Click"/>
+          <MenuItem x:Name="SaveFile" Header="_Save" Click="SaveFile_Click"/>
+        </MenuItem>
+        <MenuItem Header="_More">
+          <MenuItem Header="_About"/>
+        </MenuItem>
+      </Menu>
+    </DockPanel>
+        <Canvas x:Name="MainMenuPV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Background="#FFA6A6A6">
             <TextBlock x:Name="song1" Canvas.Left="100" TextWrapping="Wrap" Text="Song 1" Canvas.Top="50" FontSize="30" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding ElementName=menuTextColor, Path=Text}"/>
             <TextBlock x:Name="song2" Canvas.Left="100" TextWrapping="Wrap" Text="Song 2" Canvas.Top="100" FontSize="30" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding ElementName=menuTextColor, Path=Text}"/>
             <TextBlock x:Name="options" Canvas.Left="100" TextWrapping="Wrap" Text="Change Key Bindings" Canvas.Top="150" FontSize="30" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding ElementName=menuTextColor, Path=Text}"/>
             <TextBlock x:Name="exit" Canvas.Left="100" TextWrapping="Wrap" Text="Exit" Canvas.Top="200" FontSize="30" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding ElementName=menuTextColor, Path=Text}"/>
-            <Label x:Name="pressToAdvance" Canvas.Top="404" Content="Press enter to advance." FontSize="20" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding Text, ElementName=menuTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label x:Name="pressToAdvance" Canvas.Top="400" Content="Press enter to advance." FontSize="20" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding Text, ElementName=menuTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label x:Name="speedModifier" Canvas.Top="350" Content="Speed Modifier: 1x" FontSize="20" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding Text, ElementName=menuTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Canvas>
     </Grid>
 </Window>
