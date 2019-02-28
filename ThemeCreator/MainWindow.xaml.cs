@@ -29,6 +29,7 @@ namespace ThemeCreator
     public partial class MainWindow : Window
     {
         private const string hexPrefix = @"#";
+        private List<Expander> expList = new List<Expander>();
         public class Theme
         {
             private List<Scene> _scenes;
@@ -55,6 +56,11 @@ namespace ThemeCreator
             private FontFamily _font;
 
             public string TextColor { get => HexCode; set => HexCode = value; }
+
+            public Scene()
+            {
+                Font = new FontFamily("Resources/Acme 7 Wide.ttf#Grixel Acme 7 Wide");
+            }
 
             public FontFamily Font
             {
@@ -85,7 +91,6 @@ namespace ThemeCreator
             public MainMenu()
             {
                 TextColor = "FFFFFF";
-                Font = new FontFamily("Resources/Acme 7 Wide.ttf#Grixel Acme 7 Wide");
             }
         }
 
@@ -121,7 +126,11 @@ namespace ThemeCreator
             menuTextColor.DataContext = test.Scenes[0];
             optionsTextColor.DataContext = test.Scenes[1];
             menuFont.DataContext = test.Scenes[0];
-            song1.DataContext = test.Scenes[0];
+            optionsFont.DataContext = test.Scenes[1];
+
+            expList.Add(mainMenuExpand);
+            expList.Add(optionsExpand);
+            expList.Add(ingameExpand);
     }
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
@@ -196,7 +205,7 @@ namespace ThemeCreator
 
         }
 
-        private void FontBrowse_Click(object sender, RoutedEventArgs e)
+        private void mainFontBrowse_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
             dlg.Filter = "True Type Fonts (.ttf)|*.ttf";
@@ -212,6 +221,58 @@ namespace ThemeCreator
                 }
                 BindingExpression binding = menuFont.GetBindingExpression(TextBox.TextProperty);
                 binding.UpdateSource();
+            }
+        }
+        private void optionsFontBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "True Type Fonts (.ttf)|*.ttf";
+
+            if (dlg.ShowDialog() == true)
+            {
+
+                var fonts = Fonts.GetFontFamilies(dlg.FileName);
+
+                foreach (FontFamily fontFam in fonts)
+                {
+                    test.Scenes[1].Font = fontFam;
+                }
+                BindingExpression binding = menuFont.GetBindingExpression(TextBox.TextProperty);
+                binding.UpdateSource();
+            }
+        }
+        private void ingameFontBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "True Type Fonts (.ttf)|*.ttf";
+
+            if (dlg.ShowDialog() == true)
+            {
+
+                var fonts = Fonts.GetFontFamilies(dlg.FileName);
+
+                foreach (FontFamily fontFam in fonts)
+                {
+                    test.Scenes[2].Font = fontFam;
+                }
+                BindingExpression binding = menuFont.GetBindingExpression(TextBox.TextProperty);
+                binding.UpdateSource();
+            }
+        }
+        private void UIExpanded(object sender, RoutedEventArgs e)
+        {
+            Expander exp = (Expander)sender;
+
+            foreach (Expander i in expList)
+            {
+                if (exp == i)
+                {
+                    i.IsExpanded = true;
+                }
+                else
+                {
+                    i.IsExpanded = false;
+                }
             }
         }
     }
