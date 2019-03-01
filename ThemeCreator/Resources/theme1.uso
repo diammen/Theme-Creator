@@ -1,18 +1,19 @@
 @Main Menu; font, font color
-Resources/Acme 7 Wide.ttf
-#FFFFFF
+Grixel Acme 7 Wide
+#FF0000
 
 @Options Menu; font, font color
-Resources/Acme 7 Wide.ttf
-#FFFFFF
+Grixel Acme 7 Wide
+#FFFF00
 
-@In-game; font, perfect color, great color, miss color, score color
-Resources/Acme 7 Wide.ttf
-#FFFFFF
-#FFFFFF
-#FFFFFF
-#FFFFFF
+@In-game; font, perfect color, great color, miss color, hit region color, score color
+Grixel Acme 7 Wide
+#00FF00
+#00BBFF
+#FF0000
+#FF00BB
+#FF6DC2
 
 @Game Over Menu; font, font color
-Resources/Acme 7 Wide.ttf
-#FFFFFF
+Grixel Acme 7 Wide
+#FFFF00

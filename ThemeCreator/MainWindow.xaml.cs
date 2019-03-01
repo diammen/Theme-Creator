@@ -130,6 +130,7 @@ namespace ThemeCreator
                 TextColors.Add("GREAT", "#FFFFFF");
                 TextColors.Add("MISS", "#FFFFFF");
                 TextColors.Add("SCORE", "#FFFFFF");
+                TextColors.Add("LANE", "#FFFFFF");
             }
         }
 
@@ -156,7 +157,52 @@ namespace ThemeCreator
             dlg.Filter = "uso!mania themes (.uso)|*.uso";
             if (dlg.ShowDialog() == true)
             {
+                StreamReader reader = File.OpenText(dlg.FileName);
+                string line;
+                theme = new Theme();
 
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.StartsWith("@Main"))
+                    {
+                        line = reader.ReadLine();
+                        theme.Scenes[0].Font = new FontFamily("Resources/#" + line);
+                        line = reader.ReadLine();
+                        theme.Scenes[0].TextColor = line;
+                    }
+                    if (line.StartsWith("@Options"))
+                    {
+                        line = reader.ReadLine();
+                        theme.Scenes[1].Font = new FontFamily("Resources/#" + line);
+                        line = reader.ReadLine();
+                        theme.Scenes[1].TextColor = line;
+                    }
+                    if (line.StartsWith("@In-game"))
+                    {
+                        line = reader.ReadLine();
+                        theme.Scenes[2].Font = new FontFamily("Resources/#" + line);
+                        line = reader.ReadLine();
+                        theme.Scenes[2].TextColors["PERFECT"] = line;
+                        line = reader.ReadLine();
+                        theme.Scenes[2].TextColors["GREAT"] = line;
+                        line = reader.ReadLine();
+                        theme.Scenes[2].TextColors["MISS"] = line;
+                        line = reader.ReadLine();
+                        theme.Scenes[2].TextColors["SCORE"] = line;
+                        line = reader.ReadLine();
+                        theme.Scenes[2].TextColors["LANE"] = line;
+                        line = reader.ReadLine();
+                    }
+                    if (line.StartsWith("@Game"))
+                    {
+                        line = reader.ReadLine();
+                        theme.Scenes[3].Font = new FontFamily("Resources/#" + line);
+                        line = reader.ReadLine();
+                        theme.Scenes[3].TextColor = line;
+                    }
+                }
+                currentFilePath = dlg.FileName;
+                SetDataContext();
             }
         }
 
@@ -176,17 +222,14 @@ namespace ThemeCreator
 
                 currentFilePath = dlg.FileName;
                 theme = new Theme();
-                menuFont.DataContext = menuTextColor.DataContext = theme.Scenes[0];
-                optionsFont.DataContext = optionsTextColor.DataContext = theme.Scenes[1];
-                ingameFont.DataContext = perfectTextColor.DataContext = greatTextColor.DataContext = missTextColor.DataContext = scoreTextColor.DataContext = theme.Scenes[2];
-                gameOverFont.DataContext = gameOverTextColor.DataContext = theme.Scenes[3];
+                SetDataContext();
             }
         }
 
         private void TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            if (textBox.Text.Length > 0)
+            if (textBox.Text.Length >= 0)
             {
                 if (!textBox.Text.StartsWith(hexPrefix))
                 {
@@ -234,27 +277,28 @@ namespace ThemeCreator
             theme.Scenes[2].TextColors["GREAT"] = greatTextColor.Text;
             theme.Scenes[2].TextColors["MISS"] = missTextColor.Text;
             theme.Scenes[2].TextColors["SCORE"] = scoreTextColor.Text;
+            theme.Scenes[2].TextColors["LANE"] = laneTextColor.Text;
             theme.Scenes[3].Font = new FontFamily(gameOverFont.Text);
             theme.Scenes[3].TextColor = gameOverTextColor.Text;
 
-            string pattern = @"(Resources/[\w+\s+.ttf]+)";
+            string pattern = @"#(.*)";
             Regex rgx = new Regex(pattern);
 
             string input = "";
 
             input += "@Main Menu; font, font color\n";
-            input += rgx.Match(theme.Scenes[0].Font.ToString()).ToString() + "\n";
+            input += rgx.Match(theme.Scenes[0].Font.ToString()).Groups[1].ToString() + "\n";
             input += theme.Scenes[0].TextColor + "\n\n";
             input += "@Options Menu; font, font color\n";
-            input += rgx.Match(theme.Scenes[1].Font.ToString()).ToString() + "\n";
+            input += rgx.Match(theme.Scenes[1].Font.ToString()).Groups[1].ToString() + "\n";
             input += theme.Scenes[1].TextColor + "\n\n";
-            input += "@In-game; font, perfect color, great color, miss color, score color\n";
-            input += rgx.Match(theme.Scenes[2].Font.ToString()).ToString() + "\n";
+            input += "@In-game; font, perfect color, great color, miss color, hit region color, score color\n";
+            input += rgx.Match(theme.Scenes[2].Font.ToString()).Groups[1].ToString() + "\n";
             foreach (string color in theme.Scenes[2].TextColors.Values)
                 input += color + "\n";
             input += "\n";
             input += "@Game Over Menu; font, font color\n";
-            input += rgx.Match(theme.Scenes[3].Font.ToString()).ToString() + "\n";
+            input += rgx.Match(theme.Scenes[3].Font.ToString()).Groups[1].ToString() + "\n";
             input += theme.Scenes[3].TextColor;
 
             using (FileStream file = File.OpenWrite(currentFilePath))
@@ -376,6 +420,14 @@ namespace ThemeCreator
             binding.Source = input;
             BindingOperations.SetBinding(timing, TextBlock.ForegroundProperty, binding);
             timing.Text = "MISS";
+        }
+        private void SetDataContext()
+        {
+            menuFont.DataContext = menuTextColor.DataContext = theme.Scenes[0];
+            optionsFont.DataContext = optionsTextColor.DataContext = theme.Scenes[1];
+            ingameFont.DataContext = perfectTextColor.DataContext = greatTextColor.DataContext =
+                missTextColor.DataContext = scoreTextColor.DataContext = laneTextColor.DataContext = theme.Scenes[2];
+            gameOverFont.DataContext = gameOverTextColor.DataContext = theme.Scenes[3];
         }
     }
 }
