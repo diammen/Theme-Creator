@@ -1,0 +1,18 @@
+@Main Menu; font, font color
+Resources/Acme 7 Wide.ttf
+#FFFFFF
+
+@Options Menu; font, font color
+Resources/Acme 7 Wide.ttf
+#FFFFFF
+
+@In-game; font, perfect color, great color, miss color, score color
+Resources/Acme 7 Wide.ttf
+#FFFFFF
+#FFFFFF
+#FFFFFF
+#FFFFFF
+
+@Game Over Menu; font, font color
+Resources/Acme 7 Wide.ttf
+#FFFFFF

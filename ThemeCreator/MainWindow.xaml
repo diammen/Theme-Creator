@@ -11,7 +11,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Window.Resources>
     <Grid Background="#FF4B4B4B">
-        <ListBox Margin="801,20,1,0" Background="#FF4B4B4B" BorderBrush="#FF828282" Width="240" Grid.ColumnSpan="2">
+        <ListBox Margin="801,20,5,0" Background="#FF4B4B4B" BorderBrush="#FF828282">
             <Expander x:Name="mainMenuExpand" Header="Main Menu" HorizontalAlignment="Stretch" Foreground="White" BorderBrush="#7FE6E6E6" Width="230" Expanded="UIExpanded">
                 <Grid HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
                     <Grid.ColumnDefinitions>
@@ -48,7 +48,34 @@
                     <Button x:Name="optionsFontBrowse" Grid.Row="1" Grid.Column="1" Height="15" Width="15" HorizontalAlignment="Right" Background="#00000000" BorderBrush="White" Click="optionsFontBrowse_Click"/>
                 </Grid>
             </Expander>
-            <Expander x:Name="ingameExpand" Header="In-game" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="White" BorderBrush="#7FE6E6E6" Width="230" Expanded="UIExpanded" IsExpanded="True">
+            <Expander x:Name="ingameExpand" Header="In-game" HorizontalAlignment="Stretch" VerticalAlignment="Top" Foreground="White" BorderBrush="#7FE6E6E6" Width="230" Expanded="UIExpanded">
+                <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,-2,0" Width="230">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="140"/>
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Content="_Perfect Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="perfectTextColor" Text="{Binding Path=TextColors[PERFECT]}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,3,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" GotFocus="perfectColorGotFocus"/>
+                    <Label Grid.Row="1" Grid.Column="0" Content="_Great Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="greatTextColor" Text="{Binding Path=TextColors[GREAT]}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,3,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" GotFocus="greatColorGotFocus"/>
+                    <Label Grid.Row="2" Grid.Column="0" Content="_Miss Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" x:Name="missTextColor" Text="{Binding Path=TextColors[MISS]}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,3,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" GotFocus="missColorGotFocus"/>
+                    <Label Grid.Row="3" Grid.Column="0" Content="_Score Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
+                    <TextBox Grid.Row="3" Grid.Column="1" x:Name="scoreTextColor" Text="{Binding Path=TextColors[SCORE]}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,3,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput"/>
+                    <Label Grid.Row="4" Grid.Column="0" Content="_Font" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14"/>
+                    <TextBox x:Name="ingameFont" Grid.Row="4" Grid.Column="1" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Text="{Binding Font, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="120" Background="#BF969696" Foreground="#BFFFFFFF" IsReadOnly="True" BorderBrush="{x:Null}" Margin="0,4,0,5"/>
+                    <Button x:Name="ingameFontBrowse" Grid.Row="4" Grid.Column="1" Height="15" Width="15" HorizontalAlignment="Right" Background="#00000000" BorderBrush="White" Click="ingameFontBrowse_Click" Margin="0,0,3,0"/>
+                </Grid>
+            </Expander>
+            <Expander x:Name="gameOverExpand" Header="Game Over Menu" HorizontalAlignment="Stretch" Foreground="White" BorderBrush="#7FE6E6E6" Width="230" Expanded="UIExpanded" IsExpanded="True">
                 <Grid HorizontalAlignment="Left" Height="100" Margin="0,0,-2,0" Width="235">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -60,15 +87,15 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Grid.Column="0" Content="_Text Color" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14" VerticalAlignment="Top"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="ingameTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" Width="155"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" x:Name="gameOverTextColor" Text="{Binding TextColor}" Height="20" VerticalAlignment="Top" TextChanged="TextChanged" Margin="0,5,0,0" SelectionChanged="SelectionChanged" Background="#BF969696" BorderBrush="#BF969696" SelectionBrush="{x:Null}" SelectionOpacity="0" PreviewTextInput="PreviewInput" Width="155"/>
                     <Label Grid.Row="1" Grid.Column="0" Content="_Font" Foreground="White" FontWeight="Bold" FontFamily="Segoe UI Semilight" FontSize="14"/>
-                    <TextBox x:Name="ingameFont" Grid.Row="1" Grid.Column="1" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Text="{Binding Font, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="135" Background="#BF969696" Foreground="#BFFFFFFF" IsReadOnly="True" BorderBrush="{x:Null}"/>
-                    <Button x:Name="ingameFontBrowse" Grid.Row="1" Grid.Column="1" Height="15" Width="15" HorizontalAlignment="Right" Background="#00000000" BorderBrush="White" Click="ingameFontBrowse_Click"/>
+                    <TextBox x:Name="gameOverFont" Grid.Row="1" Grid.Column="1" ToolTip="{Binding RelativeSource={RelativeSource Self}, Path=Text}" Text="{Binding Font, UpdateSourceTrigger=Explicit}" VerticalAlignment="Center" HorizontalAlignment="Left" Height="20" Width="135" Background="#BF969696" Foreground="#BFFFFFFF" IsReadOnly="True" BorderBrush="{x:Null}"/>
+                    <Button x:Name="gameOverFontBrowse" Grid.Row="1" Grid.Column="1" Height="15" Width="15" HorizontalAlignment="Right" Background="#00000000" BorderBrush="White" Click="gameOverFontBrowse_Click"/>
                 </Grid>
             </Expander>
         </ListBox>
         <DockPanel Height="20" LastChildFill="False" VerticalAlignment="Top" Margin="0,0,-8,0" Width="1050" Grid.ColumnSpan="2">
-            <Menu DockPanel.Dock="Top" Margin="0,0,4,0">
+            <Menu DockPanel.Dock="Top" Margin="0,0,0,0">
                 <MenuItem Header="_File">
                     <MenuItem x:Name="NewFile" Header="_New" Click="NewFile_Click"/>
                     <MenuItem x:Name="OpenFile" Header="_Open" Click="OpenFile_Click"/>
@@ -79,7 +106,7 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <Canvas x:Name="MainMenuPV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Background="#FFA6A6A6" IsEnabled="True" Visibility="{Binding ElementName=mainMenuExpand, Path=IsExpanded, Converter={StaticResource BoolToVis}}">
+        <Canvas x:Name="MainMenuPV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Background="Black" IsEnabled="True" Visibility="{Binding ElementName=mainMenuExpand, Path=IsExpanded, Converter={StaticResource BoolToVis}}">
             <TextBlock x:Name="song1" Canvas.Left="100" TextWrapping="Wrap" Text="Song 1" Canvas.Top="50" FontSize="30" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding ElementName=menuTextColor, Path=Text}"/>
             <TextBlock x:Name="song2" Canvas.Left="100" TextWrapping="Wrap" Text="Song 2" Canvas.Top="100" FontSize="30" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding ElementName=menuTextColor, Path=Text}"/>
             <TextBlock x:Name="options" Canvas.Left="100" TextWrapping="Wrap" Text="Change Key Bindings" Canvas.Top="150" FontSize="30" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding ElementName=menuTextColor, Path=Text}"/>
@@ -87,7 +114,7 @@
             <Label x:Name="pressToAdvance" Canvas.Top="400" Content="Press enter to advance." FontSize="20" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding Text, ElementName=menuTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
             <Label x:Name="speedModifier" Canvas.Top="350" Content="Speed Modifier: 1x" FontSize="20" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding Text, ElementName=menuTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Canvas>
-        <Canvas x:Name="OptionsPV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Background="#FF959595" Visibility="{Binding ElementName=optionsExpand, Path=IsExpanded, Converter={StaticResource BoolToVis}}">
+        <Canvas x:Name="OptionsPV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Background="Black" Visibility="{Binding ElementName=optionsExpand, Path=IsExpanded, Converter={StaticResource BoolToVis}}">
             <TextBlock x:Name="farLeft" Canvas.Left="100" TextWrapping="Wrap" Text="Far Left:" Canvas.Top="50" FontSize="30" FontFamily="{Binding ElementName=optionsFont, Path=Text}" Foreground="{Binding ElementName=optionsTextColor, Path=Text}" IsEnabled="False"/>
             <TextBlock x:Name="middleLeft" Canvas.Left="100" TextWrapping="Wrap" Text="Middle Left:" Canvas.Top="100" FontSize="30" FontFamily="{Binding ElementName=optionsFont, Path=Text}" Foreground="{Binding ElementName=optionsTextColor, Path=Text}"/>
             <TextBlock x:Name="middleRight" Canvas.Left="100" TextWrapping="Wrap" Text="Middle Right:" Canvas.Top="150" FontSize="30" FontFamily="{Binding ElementName=optionsFont, Path=Text}" Foreground="{Binding ElementName=optionsTextColor, Path=Text}"/>
@@ -96,11 +123,11 @@
             <TextBlock x:Name="key2" Canvas.Left="500" TextWrapping="Wrap" Text="S" Canvas.Top="100" FontSize="30" FontFamily="{Binding ElementName=optionsFont, Path=Text}" Foreground="{Binding ElementName=optionsTextColor, Path=Text}" TextAlignment="Center" Background="#FF646464" Width="40"/>
             <TextBlock x:Name="key3" Canvas.Left="500" TextWrapping="Wrap" Text="K" Canvas.Top="150" FontSize="30" FontFamily="{Binding ElementName=optionsFont, Path=Text}" Foreground="{Binding ElementName=optionsTextColor, Path=Text}" TextAlignment="Center" Background="#FF646464" Width="40"/>
             <TextBlock x:Name="key4" Canvas.Left="500" Text="L" Canvas.Top="200" FontSize="30" FontFamily="{Binding ElementName=optionsFont, Path=Text}" Foreground="{Binding ElementName=optionsTextColor, Path=Text}" TextAlignment="Center" TextWrapping="Wrap" Background="#FF646464" Width="40"/>
-            <Label x:Name="optionReturn" Canvas.Top="400" Content="Press backspace to return to main menu." FontSize="20" FontFamily="{Binding ElementName=menuFont, Path=Text}" Foreground="{Binding Text, ElementName=optionsTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <Label x:Name="optionReturn" Canvas.Top="400" Content="Press backspace to return to main menu." FontSize="20" FontFamily="{Binding ElementName=optionsFont, Path=Text}" Foreground="{Binding Text, ElementName=optionsTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Canvas>
-        <Canvas x:Name="IngamePV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Background="#FF959595" Visibility="{Binding ElementName=ingameExpand, Path=IsExpanded, Converter={StaticResource BoolToVis}}">
-            <TextBlock x:Name="score" Canvas.Left="10" TextWrapping="Wrap" Text="SCORE: 0" Canvas.Top="5" FontSize="30" FontFamily="{Binding ElementName=ingameFont, Path=Text}" Foreground="{Binding ElementName=ingameTextColor, Path=Text}" IsEnabled="False"/>
-            <TextBlock x:Name="combo" Canvas.Left="10" TextWrapping="Wrap" Text="COMBO: 0" Canvas.Top="40" FontSize="30" FontFamily="{Binding ElementName=ingameFont, Path=Text}" Foreground="{Binding ElementName=ingameTextColor, Path=Text}" IsEnabled="False"/>
+        <Canvas x:Name="IngamePV" HorizontalAlignment="Left" Height="450" Margin="1,20,0,0" VerticalAlignment="Top" Width="800" Background="Black" Visibility="{Binding ElementName=ingameExpand, Path=IsExpanded, Converter={StaticResource BoolToVis}}">
+            <TextBlock x:Name="score" Canvas.Left="10" TextWrapping="Wrap" Text="SCORE: 0" Canvas.Top="5" FontSize="30" FontFamily="{Binding ElementName=ingameFont, Path=Text}" Foreground="{Binding ElementName=scoreTextColor, Path=Text}" IsEnabled="False"/>
+            <TextBlock x:Name="combo" Canvas.Left="10" TextWrapping="Wrap" Text="COMBO: 0" Canvas.Top="40" FontSize="30" FontFamily="{Binding ElementName=ingameFont, Path=Text}" Foreground="{Binding ElementName=scoreTextColor, Path=Text}" IsEnabled="False"/>
             <Rectangle x:Name="region1" Canvas.Left="325" Canvas.Top="400" Height="20" Width="40" Fill="#FFFF6DC2"/>
             <Rectangle x:Name="lane1" Canvas.Left="325" Canvas.Top="0" Height="400" Width="40" Fill="#FF323232"/>
             <Rectangle x:Name="region2" Canvas.Left="375" Canvas.Top="400" Height="20" Width="40" Fill="#FFFF6DC2"/>
@@ -109,6 +136,16 @@
             <Rectangle x:Name="lane3" Canvas.Left="425" Canvas.Top="0" Height="400" Width="40" Fill="#FF323232"/>
             <Rectangle x:Name="region4" Canvas.Left="475" Canvas.Top="400" Height="20" Width="40" Fill="#FFFF6DC2"/>
             <Rectangle x:Name="lane4" Canvas.Left="475" Canvas.Top="0" Height="400" Width="40" Fill="#FF323232"/>
+            <TextBlock x:Name="timing" Canvas.Left="350" TextWrapping="Wrap" Text="PERFECT" Canvas.Top="150" FontSize="30" FontFamily="{Binding ElementName=ingameFont, Path=Text}" Foreground="{Binding ElementName=perfectTextColor, Path=Text}" IsEnabled="False"/>
+        </Canvas>
+        <Canvas x:Name="GameOverPV" HorizontalAlignment="Left" Height="450" Margin="0,20,0,0" VerticalAlignment="Top" Width="800" Background="Black" Visibility="{Binding ElementName=gameOverExpand, Path=IsExpanded, Converter={StaticResource BoolToVis}}">
+            <TextBlock x:Name="finalScore" Canvas.Left="50" TextWrapping="Wrap" Text="FINAL SCORE: 0" Canvas.Top="25" FontSize="30" FontFamily="{Binding ElementName=gameOverFont, Path=Text}" Foreground="{Binding ElementName=gameOverTextColor, Path=Text}" IsEnabled="False"/>
+            <TextBlock x:Name="finalCombo" Canvas.Left="50" TextWrapping="Wrap" Text="HIGHEST SCORE: 0" Canvas.Top="75" FontSize="30" FontFamily="{Binding ElementName=gameOverFont, Path=Text}" Foreground="{Binding ElementName=gameOverTextColor, Path=Text}" IsEnabled="False"/>
+            <TextBlock x:Name="perfectCount" Canvas.Left="50" TextWrapping="Wrap" Text="PERFECTS: 0" Canvas.Top="125" FontSize="30" FontFamily="{Binding ElementName=gameOverFont, Path=Text}" Foreground="{Binding ElementName=gameOverTextColor, Path=Text}" IsEnabled="False"/>
+            <TextBlock x:Name="greatCount" Canvas.Left="50" TextWrapping="Wrap" Text="GREATS: 0" Canvas.Top="175" FontSize="30" FontFamily="{Binding ElementName=gameOverFont, Path=Text}" Foreground="{Binding ElementName=gameOverTextColor, Path=Text}" IsEnabled="False"/>
+            <TextBlock x:Name="missCount" Canvas.Left="50" TextWrapping="Wrap" Text="MISSES: 0" Canvas.Top="225" FontSize="30" FontFamily="{Binding ElementName=gameOverFont, Path=Text}" Foreground="{Binding ElementName=gameOverTextColor, Path=Text}" IsEnabled="False"/>
+            <TextBlock x:Name="rank" Canvas.Left="650" TextWrapping="Wrap" Text="A" Canvas.Top="25" FontSize="150" FontFamily="{Binding ElementName=gameOverFont, Path=Text}" Foreground="{Binding ElementName=gameOverTextColor, Path=Text}" IsEnabled="False"/>
+            <Label x:Name="gameOverReturn" Canvas.Top="400" Content="Press R to return to main menu." FontSize="20" FontFamily="{Binding ElementName=gameOverFont, Path=Text}" Foreground="{Binding Text, ElementName=gameOverTextColor}" Width="800" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         </Canvas>
     </Grid>
 </Window>
