@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ThemeCreator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="550" Width="1050">
+        Title="MainWindow" Height="550" Width="1050" ResizeMode="CanMinimize">
     <Window.Resources>
         <Color x:Key="Color1">Black</Color>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
